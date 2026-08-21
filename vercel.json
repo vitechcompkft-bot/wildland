@@ -1,5 +1,9 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+
+  "//": "A régi WordPress minden címe záró perjellel végződött (/rolunk/). A trailingSlash:false ezeket előbb a perjel nélküli alakra normalizálja, és az alábbi szabályok már azt kapják el.",
+  "trailingSlash": false,
+
   "redirects": [
     { "source": "/wp-content/:path*", "destination": "/uploads/regi/:path*", "permanent": true },
 
