@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Az oldal nem található — Wildland Concepts</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="/logo-transparent.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;600;700&family=Spectral:ital,wght@0,300;0,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #0c130d;
+    color: #e9e7df;
+    font-family: Spectral, Georgia, serif;
+  }
+  a { color: #e9e7df; text-decoration: none; }
+  ::selection { background: oklch(0.5 0.11 148); color: #f1efe7; }
+
+  main {
+    flex: 1;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(18px, 3vw, 26px);
+    text-align: center;
+    padding: clamp(56px, 10vw, 110px) clamp(18px, 5vw, 30px);
+    overflow: hidden;
+  }
+  main::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url("/uploads/WILDLAND%20LOGO%20NAGY2.png") left center / cover no-repeat;
+    transform: scale(3.4);
+    transform-origin: 2% 50%;
+    opacity: 0.22;
+  }
+  main > * { position: relative; z-index: 1; }
+
+  img.mark {
+    height: clamp(76px, 11vw, 116px);
+    width: auto;
+    filter: drop-shadow(0 0 16px rgba(233, 231, 223, 0.4));
+  }
+  .code {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: clamp(11px, 1.2vw, 13px);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: oklch(0.82 0.12 146);
+  }
+  h1 {
+    margin: 0;
+    font-family: Oswald, sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-size: clamp(26px, 4.6vw, 50px);
+    line-height: 1.08;
+    max-width: 16ch;
+  }
+  p {
+    margin: 0;
+    max-width: 46ch;
+    font-weight: 300;
+    font-size: clamp(15px, 1.8vw, 18px);
+    line-height: 1.6;
+    color: rgba(233, 231, 223, 0.86);
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    justify-content: center;
+    margin-top: 8px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: clamp(12px, 1.3vw, 14px);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .actions a {
+    padding: 14px 26px;
+    border: 1px solid oklch(0.6 0.12 146);
+    color: oklch(0.82 0.12 146);
+    transition: background 0.15s, color 0.15s;
+  }
+  .actions a.primary { background: oklch(0.45 0.11 148); color: #f1efe7; border-color: oklch(0.45 0.11 148); }
+  .actions a:hover { background: oklch(0.45 0.11 148); color: #f1efe7; }
+
+  footer {
+    padding: 22px clamp(14px, 3vw, 30px);
+    border-top: 1px solid rgba(233, 231, 223, 0.16);
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 14px 28px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: clamp(11px, 1.2vw, 13px);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  footer a:hover { color: oklch(0.82 0.12 146); }
+</style>
+</head>
+<body>
+
+<main>
+  <img class="mark" src="/logo-transparent.png" alt="Wildland Concepts">
+  <p class="code">Hiba 404</p>
+  <h1>Ez az oldal nem található</h1>
+  <p>Megújult a weboldalunk, és ezzel néhány régi cím megszűnt. Amit keresel, jó eséllyel megvan a kezdőlapon.</p>
+  <div class="actions">
+    <a class="primary" href="/">Kezdőlap</a>
+    <a href="mailto:info@wildlandconcepts.com">Írj nekünk</a>
+  </div>
+</main>
+
+<footer>
+  <span>Wildland Concepts</span>
+  <a href="mailto:info@wildlandconcepts.com">info@wildlandconcepts.com</a>
+  <a href="tel:+36305449753">+36305449753</a>
+</footer>
+
+</body>
+</html>
