@@ -14,6 +14,87 @@
   a { color: #141a14; text-decoration: none; }
   a:hover { color: oklch(0.45 0.11 148); }
   ::selection { background: oklch(0.5 0.11 148); color: #f1efe7; }
+
+  /* ---- mobil menü (hamburger) ---- */
+  .wl-burger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    flex: none;
+    width: 46px;
+    height: 46px;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    border: 1px solid rgba(233,231,223,0.28);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .wl-burger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    margin: 0 auto;
+    background: #e9e7df;
+    transition: transform 0.22s ease, opacity 0.16s ease;
+  }
+  .wl-burger.is-open { border-color: oklch(0.6 0.12 146); }
+  .wl-burger.is-open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+  .wl-burger.is-open span:nth-child(2) { opacity: 0; }
+  .wl-burger.is-open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+  .wl-menu-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    background: rgba(8,13,9,0.55);
+  }
+  .wl-mobile-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 60;
+    display: flex;
+    flex-direction: column;
+    max-height: 78vh;
+    overflow-y: auto;
+    padding: 4px clamp(14px,4vw,30px) 20px;
+    background: #0c130d;
+    border-bottom: 1px solid rgba(233,231,223,0.16);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 15px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .wl-mobile-menu a {
+    color: #e9e7df;
+    cursor: pointer;
+    padding: 16px 2px;
+    border-bottom: 1px solid rgba(233,231,223,0.12);
+  }
+  .wl-mobile-menu a:active { color: oklch(0.78 0.12 146); }
+  .wl-mobile-menu a.wl-menu-cta {
+    margin-top: 18px;
+    padding: 15px 20px;
+    text-align: center;
+    border: 1px solid oklch(0.6 0.12 146);
+    color: oklch(0.8 0.12 146);
+  }
+
+  /* A vízszintes menü 7 tétele csak ~1000px felett fér ki egy sorba, ezért
+     ott kicsit szorosabb, alatta pedig hamburger-menü veszi át a helyét. */
+  .wl-nav { gap: 12px 16px !important; font-size: clamp(12px, 1.15vw, 14px) !important; }
+  .wl-nav > a:last-child { padding: 9px 15px !important; }
+
+  @media (max-width: 1023px) {
+    .wl-nav { display: none !important; }
+    .wl-burger { display: flex !important; }
+  }
+  @media (min-width: 1024px) {
+    .wl-menu-backdrop, .wl-mobile-menu { display: none !important; }
+  }
 </style>
 </helmet>
 <div style="background:#edefe8; color:#141a14; overflow-x:clip">
@@ -23,7 +104,7 @@
       <img src="logo-transparent.png" alt="Wildland Concepts" style="height:38px; width:38px; display:block; filter:drop-shadow(0 0 8px rgba(233,231,223,0.4))" />
       <span style="font-family:Oswald,sans-serif; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; font-size:clamp(13px,1.4vw,16px); line-height:1.2">Wildland Concepts</span>
     </a>
-    <nav style="display:flex; align-items:center; flex-wrap:wrap; justify-content:flex-end; min-width:0; gap:14px 22px; font-family:'IBM Plex Mono',monospace; font-size:clamp(13px,1.4vw,16px); letter-spacing:0.12em; text-transform:uppercase">
+    <nav class="wl-nav" style="display:flex; align-items:center; flex-wrap:wrap; justify-content:flex-end; min-width:0; gap:14px 22px; font-family:'IBM Plex Mono',monospace; font-size:clamp(13px,1.4vw,16px); letter-spacing:0.12em; text-transform:uppercase">
       <a onClick="{{ goAbout }}" style="cursor:pointer; color:#e9e7df" style-hover="color:oklch(0.78 0.12 146)">Rólunk</a>
       <a onClick="{{ goCourses }}" style="cursor:pointer; color:#e9e7df" style-hover="color:oklch(0.78 0.12 146)">Képzéseink</a>
       <a onClick="{{ goGear }}" style="cursor:pointer; color:#e9e7df" style-hover="color:oklch(0.78 0.12 146)">Felszerelések</a>
@@ -32,6 +113,24 @@
       <a onClick="{{ goPrices }}" style="cursor:pointer; color:#e9e7df" style-hover="color:oklch(0.78 0.12 146)">Árlista</a>
       <a onClick="{{ goContact }}" style="cursor:pointer; border:1px solid oklch(0.6 0.12 146); color:oklch(0.8 0.12 146); padding:11px 20px" style-hover="background:oklch(0.45 0.11 148); color:#f1efe7">Kapcsolat</a>
     </nav>
+
+    <button onClick="{{ toggleMenu }}" class="{{ burgerClass }}" type="button" aria-label="Menü" aria-expanded="{{ menuOpenStr }}">
+      <span></span><span></span><span></span>
+    </button>
+
+    <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeMenu }}" class="wl-menu-backdrop"></div>
+    <nav class="wl-mobile-menu">
+      <a onClick="{{ goHome }}">Kezdőlap</a>
+      <a onClick="{{ goAbout }}">Rólunk</a>
+      <a onClick="{{ goCourses }}">Képzéseink</a>
+      <a onClick="{{ goGear }}">Felszerelések</a>
+      <a onClick="{{ goBlackForest }}">Black Forest</a>
+      <a onClick="{{ goGallery }}">Galéria</a>
+      <a onClick="{{ goPrices }}">Árlista</a>
+      <a onClick="{{ goContact }}" class="wl-menu-cta">Kapcsolat</a>
+    </nav>
+    </sc-if>
   </header>
 
   <section style="position:relative; min-height:clamp(200px,26vw,280px); display:flex; align-items:center; justify-content:center; padding:clamp(28px,5vw,44px) clamp(16px,4vw,30px); box-sizing:border-box; overflow:hidden">
@@ -351,13 +450,15 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;showPricing&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
 class Component extends DCLogic {
-  state = { page: "home", lightbox: null };
+  state = { page: "home", lightbox: null, menuOpen: false };
   go(page) {
     return () => {
-      this.setState({ page, lightbox: null });
+      this.setState({ page, lightbox: null, menuOpen: false });
       if (typeof window !== "undefined") window.scrollTo(0, 0);
     };
   }
+  toggleMenu = () => this.setState({ menuOpen: !this.state.menuOpen });
+  closeMenu = () => this.setState({ menuOpen: false });
   openPhoto = (e) => {
     const a = e.currentTarget.closest("[data-full]");
     if (a) { e.preventDefault(); this.setState({ lightbox: a.getAttribute("data-full") }); }
@@ -376,6 +477,11 @@ class Component extends DCLogic {
       isGallery: p === "gallery",
       lightbox: this.state.lightbox,
       lightboxUrl: this.state.lightbox ? 'url("' + this.state.lightbox + '")' : "none",
+      menuOpen: this.state.menuOpen,
+      menuOpenStr: this.state.menuOpen ? "true" : "false",
+      burgerClass: this.state.menuOpen ? "wl-burger is-open" : "wl-burger",
+      toggleMenu: this.toggleMenu,
+      closeMenu: this.closeMenu,
       openPhoto: this.openPhoto,
       closePhoto: this.closePhoto,
       isContact: p === "contact",
